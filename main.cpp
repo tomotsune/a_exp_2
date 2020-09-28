@@ -17,6 +17,42 @@ struct Empoyee {
 };
 int main(int argc, char* argv[])
 {
+    // 题目1 顺序插入
+    Link<int> list;
+    list.insertHead(5);
+    list.insertHead(3);
+    list.insertHead(2);
+    list.insertHead(1);
+    cout<<"list: ";
+    list.print();
+    list.add(4);
+    cout<< "after adding: ";
+    list.print();
+
+    //题目2 倒置
+    list.reverse();
+    cout<<"after reversing: ";
+    list.print();
+
+    //题目3 链接
+    Link<int> list_2;
+    list_2.insertHead(8);
+    list_2.insertHead(7);
+    list_2.insertHead(6);
+    cout<<"list_2: ";
+    list_2.print();
+    list.join(list_2);
+    cout<<"list + list_2: ";
+    list.print();
+    list.sort();
+    cout<< "after sorting: ";
+    list.print();
+    list.reverse();
+    cout<< "after reversing: ";
+    list.print();
+    return 0;
+}
+void test_1(){
     Link<Empoyee> list;
     Empoyee no1{ "no1",001 }, no2{ "no2",002 }, no3{"no3",003}, no4{ "no4",004 };
 
@@ -44,7 +80,4 @@ int main(int argc, char* argv[])
     list.print();
 
     //List类测试
-
-
-    return 0;
 }

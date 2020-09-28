@@ -7,6 +7,17 @@ struct Node
 	T val;
 	Node* next;
 	explicit Node(T x) :val(x), next(nullptr) {}
+
+    bool operator<(const Node &rhs) const {
+        return val<rhs.val;
+    }
+
+    Node(const Node &rhs) {
+        val = rhs.val;
+    }
+    void operator=(const Node &rhs) {
+        val = rhs.val;
+    }
 };
 template<typename T>
 class Link
@@ -18,11 +29,14 @@ public:
 	Link();
 	void insertHead(T var);
 	void insert(T val, const int& pos);
+	void add(const T& val);
 	void remove(T val);
 	int getLength();
 	void reverse();
 	int find(T val);
 	void print();
+	void sort();
+	void join(const Link& l);
 	~Link();
 };
 
@@ -107,6 +121,10 @@ inline void Link<T>::reverse()
 		return;
 	}
 	Node<T>* curNode{ head }, * nextNode{ head->next }, * temp;
+	//保存3号位置结点,
+	// 把1号位置结点放到3号职位,
+	// 2号移到1号,
+	// 将被保存的原三号位置结点放到2号位置.
 	while (nextNode!=nullptr)
 	{
 		temp = nextNode->next;
@@ -143,7 +161,7 @@ inline void Link<T>::print()
 	Node<T>* temp{ head };
 	while (temp!=nullptr)
 	{
-		cout << temp->val << endl;
+		cout << temp->val << " ";
 		temp = temp->next;
 	}
 	cout << endl;
@@ -160,3 +178,40 @@ inline Link<T>::~Link()
 		delete temp;
 	}
 }
+
+template<typename T>
+void Link<T>::sort() {
+    if (length == 1)return;
+    for (auto p = head; p->next != nullptr; p = p->next) {
+        for (auto q = p->next; q != nullptr; q = q->next) {
+            if (*p < *q) {
+                auto temp{*q};
+                *q = *p;
+                *p = temp;
+            }
+        }
+    }
+}
+
+template<typename T>
+void Link<T>::join(const Link& l) {
+    if(head== nullptr)return;
+    auto temp{head};
+    while(temp->next!= nullptr){
+        temp=temp->next;
+    }
+    temp->next=l.head;
+}
+
+template<typename T>
+void Link<T>::add(const T& val) {
+    auto temp{head};
+    auto index{0};
+    while(temp!= nullptr){
+        if(temp->val >= val)break;
+        temp=temp->next;
+        ++index;
+    }
+    insert(val,index);
+}
+
