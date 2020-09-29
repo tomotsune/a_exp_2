@@ -17,6 +17,38 @@ struct Empoyee {
 };
 int main(int argc, char* argv[])
 {
+    Link<int> list;
+    list.insertHead(6);
+    list.insertHead(4);
+    list.insertHead(3);
+    list.insertHead(2);
+    list.insertHead(1);
+
+    //1. test LinkPrint()
+    list.print();
+
+    //2. 获得头指针.
+    cout<<list.getHead()<<endl;
+
+    //3. 向pos=4的位置插入结点为5的值.
+    list.insert(5,4);
+    list.print();
+
+    //4. 删除链表中第一个值为6的结点.
+    list.remove(6);
+    list.print();
+
+    //5. 链接另外一个链表.
+    Link<int> list_2;;
+    list_2.insertHead(7);
+    list_2.insertHead(6);
+    list.connect(list_2);
+    list.print();
+    return 0;
+
+
+}
+void dataStructTest(){
     // 题目1 顺序插入
     Link<int> list;
     list.insertHead(5);
@@ -25,7 +57,7 @@ int main(int argc, char* argv[])
     list.insertHead(1);
     cout<<"list: ";
     list.print();
-    list.add(4);
+    list.addByOrdered(4);
     cout<< "after adding: ";
     list.print();
 
@@ -41,7 +73,7 @@ int main(int argc, char* argv[])
     list_2.insertHead(6);
     cout<<"list_2: ";
     list_2.print();
-    list.join(list_2);
+    list.connect(list_2);
     cout<<"list + list_2: ";
     list.print();
     list.sort();
@@ -50,7 +82,6 @@ int main(int argc, char* argv[])
     list.reverse();
     cout<< "after reversing: ";
     list.print();
-    return 0;
 }
 void test_1(){
     Link<Empoyee> list;
