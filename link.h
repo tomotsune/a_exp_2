@@ -28,11 +28,13 @@ public:
 
     Link();
 
+    Link(const std::initializer_list<ElemType> &val);
+
     virtual ~Link();
 
     Node<ElemType> *getElem(int pos);
 
-    void insert(int pos, const ElemType &val);
+    void insert(int pos, const ElemType &vals);
 
     void remove(int pos);
 
@@ -116,10 +118,10 @@ void Link<ElemType>::remove(int pos) {
         if (pos < 1)
             throw "remove(int pos): underflow";
         auto temp{getElem(pos - 1)};
-        if(temp== nullptr||temp->next== nullptr)
+        if (temp == nullptr || temp->next == nullptr)
             throw "error: remove(int pos): overflow";
         auto removeNode{temp->next};
-        temp->next=removeNode->next;
+        temp->next = removeNode->next;
         delete removeNode;
     } catch (const char *msg) {
         cerr << msg << endl;
@@ -144,6 +146,17 @@ int Link<ElemType>::length() const {
         ++len;
     }
     return len;
+}
+
+template<typename ElemType>
+Link<ElemType>::Link(const initializer_list<ElemType> &vals):Link() {
+    auto left{head};
+    for (auto const &val  : vals) {
+        auto right{new Node<ElemType>{val}};
+        left->next = right;
+        left = right;
+    }
+    left = nullptr;
 }
 
 
